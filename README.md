@@ -54,3 +54,11 @@ realizar consultas y análisis de datos en el contexto de una tienda de alquiler
   25. BONUS: Encuentra todos los actores que han actuado juntos en al menos una película. La
     consulta debe mostrar el nombre y apellido de los actores y el número de películas en las que
     han actuado juntos.
+
+## Bibliografía
+
+https://myprofesql.com/comparacion-de-fechas-sql/
+
+https://books.adalab.es/materiales-promo-h-data-analytics
+
+https://es.stackoverflow.com/
