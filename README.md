@@ -1,4 +1,7 @@
-# Ejercicio Final Módulo 2
+
+
+
+ <img width="114" alt="Captura" src="https://github.com/spinelf/promo-H-DA-modulo2-evaluacion-final-SilviaPinel/assets/99440874/06003b59-282a-4129-83aa-3758a3e7855c">  <h2> Ejercicio Final Módulo 2 </h2>
 
 ## Base de Datos Sakila:
 
