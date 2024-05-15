@@ -67,3 +67,5 @@ https://myprofesql.com/comparacion-de-fechas-sql/
 https://books.adalab.es/materiales-promo-h-data-analytics
 
 https://es.stackoverflow.com/
+
+https://raw.githubusercontent.com/spinelf/promo-H-DA-modulo2-evaluacion-final-SilviaPinel/main/detalle-bbdd-sakila.md
