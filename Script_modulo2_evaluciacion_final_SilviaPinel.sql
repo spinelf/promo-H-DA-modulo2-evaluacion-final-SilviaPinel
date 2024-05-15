@@ -13,32 +13,33 @@ realizar consultas y análisis de datos en el contexto de una tienda de alquiler
 
 -- 1. Selecciona todos los nombres de las películas sin que aparezcan duplicados.
 
-        	SELECT DISTINCT (title)
+		SELECT DISTINCT (title)
 		FROM film_text;
+
 
 -- 2. Muestra los nombres de todas las películas que tengan una clasificación de "PG-13".
 
-      		SELECT title,rating
+		SELECT title,rating
 		FROM film
 		WHERE rating ='pg-13';
 
 /* 3. Encuentra el título y la descripción de todas las películas que contengan la palabra "amazing" en
 su descripción. */
 
-        	SELECT title, description
-		FROM film
+		SELECT title, description
+		from film
 		WHERE description LIKE '%amazing%';
 
 -- 4. Encuentra el título de todas las películas que tengan una duración mayor a 120 minutos.
 
-       		SELECT title, length
-		FROM film
+		SELECT title, length
+		from film
 		WHERE length > 120;
 
 -- 5. Recupera los nombres de todos los actores.
 
-        	SELECT first_name,last_name 
-  		FROM actor;
+		SELECT first_name,last_name 
+		FROM actor;
 
 -- 6. Encuentra el nombre y apellido de los actores que tengan "Gibson" en su apellido.
 
@@ -98,12 +99,13 @@ categoría junto con el recuento de alquileres.*/
 		GROUP BY cat.name;
 
 
-      /* Razonamiento
-			      rental -- rental id. -- inventory_id
+/* Razonamiento
+			rental -- rental id. -- inventory_id
             inventario --  film_id,  -- inventario_id
-			      category -- cat.name -- category id
-			      film_category -- category_id	
-      */
+			category -- cat.name -- category id
+			film_category -- category_id	
+
+*/
 
 
 /* 12. Encuentra el promedio de duración de las películas para cada clasificación de la tabla film y
@@ -119,14 +121,14 @@ muestra la clasificación junto con el promedio de duración.*/
 		SELECT CONCAT (act.first_name,' ',act.last_name) AS Actors_in_movie, act.actor_id
 		FROM actor AS act
 		INNER JOIN film_actor AS factor ON act.actor_id =factor.actor_id
-    		INNER JOIN film AS f ON f.film_id = factor.film_id
+		INNER JOIN film AS f ON f.film_id = factor.film_id
 		WHERE f.title = 'Indian Love'
 		ORDER BY act.first_name ASC;
 
 -- 14. Muestra el título de todas las películas que contengan la palabra "dog" o "cat" en su descripción.
 
 		SELECT film_id, title, description
-       		FROM film
+        	FROM film
         	WHERE description LIKE '%dog%' OR description LIKE '%cat%';
         
 -- 15. Hay algún actor o actriz que no apareca en ninguna película en la tabla film_actor.
@@ -144,7 +146,7 @@ muestra la clasificación junto con el promedio de duración.*/
 
 		SELECT film_id,title,release_year
         	FROM film
-       		WHERE release_year BETWEEN 2005 AND 2010;
+        	WHERE release_year BETWEEN 2005 AND 2010;
 
 -- 17. Encuentra el título de todas las películas que son de la misma categoría que "Family".
 
@@ -155,17 +157,17 @@ muestra la clasificación junto con el promedio de duración.*/
         	WHERE cat.name ='Family';
         
        /* Razonamiento  
-            film -- film_id -- title
-            film_category -- film_id-- category id
-            category -- category_id -- name */
+        film -- film_id -- title
+        film_category -- film_id-- category id
+        category -- category_id -- name */
         
 -- 18. Muestra el nombre y apellido de los actores que aparecen en más de 10 películas.
 
 		SELECT COUNT(film_id) AS film_sum, CONCAT(first_name,' ',last_name) AS Actors_Names,factor.actor_id
 		FROM film_actor AS factor
 		INNER JOIN actor AS act ON factor.actor_id = act.actor_id
-	      	GROUP BY factor.actor_id
-		HAVING film_sum >10;
+		GROUP BY factor.actor_id
+        	HAVING film_sum >10;
 
 /* 19. Encuentra el título de todas las películas que son "R" y tienen una duración mayor a 2 horas en la
 	tabla film.*/
@@ -183,35 +185,29 @@ muestra la clasificación junto con el promedio de duración.*/
         	LEFT JOIN film_category AS fcat ON fcat.film_id = f.film_id
         	LEFT JOIN category ON category.category_id = fcat.category_id
         	GROUP BY category_id
-       		HAVING length_average >120;
-
-        /* Razonamiento  
-		        -- film -- length -- film_id
-            -- film_category -- film_id -- category_id
-            -- category -- name -- category_id*/
-
-        -- Hecho con Left Join
-
-		SELECT fcat.category_id, name,ROUND(AVG(length)) AS length_average
-        	FROM film AS f
-       	 	INNER JOIN film_category AS fcat ON fcat.film_id = f.film_id
-        	INNER JOIN category ON category.category_id = fcat.category_id
-        	GROUP BY category_id
         	HAVING length_average >120;
 
-
+		-- Razonamiento
+ 
+		-- film -- length -- film_id
+       		 -- film_category -- film_id -- category_id
+        	-- category -- name -- category_id
+	
 /* 21. Encuentra los actores que han actuado en al menos 5 películas y muestra el nombre del actor
 junto con la cantidad de películas en las que han actuado.*/
 
-       		SELECT factor.actor_id, CONCAT (first_name,' ' ,last_name) AS Actors_names , COUNT(factor.film_id) AS film_add
-       	 	FROM actor AS act
+        	SELECT factor.actor_id, CONCAT (first_name,' ' ,last_name) AS Actors_names , COUNT(factor.film_id) AS film_add
+        	FROM actor AS act
         	INNER JOIN film_actor AS factor ON act.actor_id = factor.actor_id
-       	 	GROUP BY factor.actor_id
-        	HAVING film_add >5;
+        	GROUP BY factor.actor_id
+       	 	HAVING film_add >5;
 
-		    -- Razonamiento--
-		        -- actor -- actor_id -- first_name -- last_name
-            -- film_actor -- actor_id -- film_id
+		-- Razonamiento--
+		-- actor -- actor_id -- first_name -- last_name
+        	-- film_actor -- actor_id -- film_id
+
+
+
 
 /* 22. Encuentra el título de todas las películas que fueron alquiladas por más de 5 días. Utiliza una
 subconsulta para encontrar los rental_ids con una duración superior a 5 días y luego selecciona
@@ -219,69 +215,110 @@ las películas correspondientes.*/
         
 		SELECT film_id, title
 		FROM film_text
-  		WHERE film_id IN (SELECT film_id 
+		WHERE film_id IN (SELECT film_id 
 				  FROM inventory WHERE inventory_id IN (SELECT inventory_id 
 									FROM rental 
 									WHERE DATEDIFF (return_date,rental_date) >5));
 
-		    -- Razonamiento -- 
-            -- rental -- rental_id -- rental_date -- return_date -- inventory_id
-            -- film_text -- film_id -- title
-            -- inventory -- inventory_id -- film_id
+	-- Razonamiento -- 
+        -- rental -- rental_id -- rental_date -- return_date -- inventory_id
+        -- film_text -- film_id -- title
+        -- inventory -- inventory_id -- film_id
 
 
 /* 23. Encuentra el nombre y apellido de los actores que no han actuado en ninguna película de la
 categoría "Horror". Utiliza una subconsulta para encontrar los actores que han actuado en
 películas de la categoría "Horror" y luego exclúyelos de la lista de actores.
 */
-
-      SELECT CONCAT (first_name,' ' ,last_name) AS Actors_names
-		  FROM actor
-		  WHERE actor_id NOT IN (SELECT actor_id
-					FROM film_actor   
-					WHERE film_id IN (SELECT film_id
-							  FROM film_category
-							  WHERE category_id =  (SELECT category_id
-										FROM category
-										WHERE name = 'Horror')));
+             
+		SELECT CONCAT (first_name,' ' ,last_name) AS Actors_names
+		FROM actor
+		WHERE actor_id NOT IN (SELECT actor_id
+				       FROM film_actor   
+				       WHERE film_id IN (SELECT film_id
+							 FROM film_category
+							 WHERE category_id =  (SELECT category_id
+									       FROM category
+									       WHERE name = 'Horror')));
         
-		  -- Razonamiento
-		    -- actor -- firt_name -- last_name -- actor_id
-        -- film_actor -- actor_id -- film_id
-        -- film_category -- film_id -- category_id
-		    -- category -- category_id -- name
+		-- Razonamiento
+		-- actor -- firt_name -- last_name -- actor_id
+        	-- film_actor -- actor_id -- film_id
+        	-- film_category -- film_id -- category_id
+		-- category -- category_id -- name
 
 -- BONUS:
 
 /* 24. Encuentra el título de las películas que son comedias y tienen una duración mayor a 180
 minutos en la tabla film.*/
 
-	    SELECT f.film_id, f.title, f.length, cat.name
-      	    FROM film AS f
-     	    INNER JOIN film_category AS fcat ON f.film_id = fcat.film_id
-     	    INNER JOIN category AS cat ON fcat.category_id = cat.category_id
-      	    WHERE f.length >180 AND cat.name = 'Comedy';
+		SELECT f.film_id, f.title, f.length, cat.name
+    		FROM film AS f
+    		INNER JOIN film_category AS fcat ON f.film_id = fcat.film_id
+    		INNER JOIN category AS cat ON fcat.category_id = cat.category_id
+    		WHERE f.length >180 AND cat.name = 'Comedy';
 
-
+		-- Razonamiento:
+        -- f.film_id = fcat.film_id, asociamos las películas con sus categorías.
+        -- fcat.category_id = cat.category_id, asociamos las categorías con sus nombres.
+        -- filtramos las peliculas por length mayor de 180 y el nombre de la categoría Comedy.
+        
 /* 25. BONUS: Encuentra todos los actores que han actuado juntos en al menos una película. La
 consulta debe mostrar el nombre y apellido de los actores y el número de películas en las que
 han actuado juntos.*/
-
+	               
 	WITH actores_peli AS (SELECT factor1.film_id,factor1.actor_id AS id_actor1,factor2.actor_id AS id_actor2
 				FROM film_actor AS factor1 
 				INNER JOIN film_actor AS factor2
 				ON factor1.film_id = factor2.film_id
 				WHERE factor1.actor_id <> factor2.actor_id)
     
-	SELECT CONCAT(actor1.first_name, ' ', actor1.last_name) AS Nombre_actor_1, CONCAT(actor2.first_name, ' ',  actor2.last_name) AS Nombre_actor_2, COUNT(DISTINCT film_id) AS film_number
+	SELECT CONCAT(actor1.first_name, ' ', actor1.last_name) AS Nombre_actor_1, CONCAT(actor2.first_name, ' ',  actor2.last_name) AS Nombre_actor_2,
+	COUNT(DISTINCT film_id) AS film_number
 	FROM actores_peli 
     	INNER JOIN actor AS actor1
-   	ON actores_peli.id_actor1 = actor1.actor_id
+   	 ON actores_peli.id_actor1 = actor1.actor_id
     	INNER JOIN actor AS actor2
     	ON actores_peli.id_actor2 = actor2.actor_id
     	GROUP BY id_actor1, id_actor2;
 
+       -- Razonamiento
+			-- actor -- first_name -- last_name -- actor_id
+			-- film_actor -- actor_id -- film_id
+		
+	-- En el CTE:
 
-	-- Razonamiento
-	-- actor -- first_name -- last_name -- actor_id
-	-- film_actor -- actor_id -- film_id
+	/* Se crea una tabla temporal llamada actores_peli. Esta tabla contiene tres columnas: film_id, id_actor1 y id_actor2.
+	La tabla actores_peli se forma seleccionando pareJAS de actores (actor_id) que han actuado juntos en al menos una película. Se hace esto mediante 
+	unir la tabla film_actor consigo misma (factor1 y factor2), asegurándose de que el film_id sea el mismo, pero los actor_id sean diferentes.*/
+
+	-- Consulta:
+
+	/* Se seleccionan los nombres del actor1 y del actor2 y unimos los nombres y apellidos con CONCAT.
+	   Se cuenta el número de películas distintas (film_number) en las que cada pareja de actores han trabajado juntos y los agrupamos por los ids de los actores 
+	   (id_actor1 e id_actor2).
+	   Hacemos dos INNER JOIN, una para cada actor para obtener los nombres de los actore que conindicen con la table temporal.*/
+  
+		-- Otra forma de hacerlo:
+        
+        	SELECT CONCAT(actor1.first_name, ' ', actor1.last_name) AS Nombre_actor_1, 
+        	CONCAT(actor2.first_name, ' ', actor2.last_name) AS Nombre_actor_2, 
+        	COUNT(DISTINCT factor1.film_id) AS film_number
+		FROM film_actor AS factor1
+		INNER JOIN film_actor AS factor2 ON factor1.film_id = factor2.film_id AND factor1.actor_id <> factor2.actor_id
+		INNER JOIN actor AS actor1 ON factor1.actor_id = actor1.actor_id
+		INNER JOIN actor AS actor2 ON factor2.actor_id = actor2.actor_id
+		GROUP BY factor1.actor_id, factor2.actor_id;
+
+
+/* ----ORDEN DE EJECUCION DE LAS CONSULTAS----- 
+FROM
+JOIN
+WHERE
+GROUP BY
+HAVING
+SELECT
+DISTINCT
+ORDER BY
+OFFSET
+LIMIT */
