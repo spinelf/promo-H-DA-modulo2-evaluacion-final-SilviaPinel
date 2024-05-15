@@ -363,4 +363,16 @@ han actuado juntos.*/
 	-- actor -- first_name -- last_name -- actor_id
 	-- film_actor -- actor_id -- film_id
 
+ 	-- Otra forma de hacerlo:
+        
+        SELECT CONCAT(actor1.first_name, ' ', actor1.last_name) AS Nombre_actor_1, 
+        CONCAT(actor2.first_name, ' ', actor2.last_name) AS Nombre_actor_2, 
+        COUNT(DISTINCT factor1.film_id) AS film_number
+	FROM film_actor AS factor1
+	INNER JOIN film_actor AS factor2 ON factor1.film_id = factor2.film_id AND factor1.actor_id <> factor2.actor_id
+	INNER JOIN actor AS actor1 ON factor1.actor_id = actor1.actor_id
+	INNER JOIN actor AS actor2 ON factor2.actor_id = actor2.actor_id
+	GROUP BY factor1.actor_id, factor2.actor_id;
+
+<img width="475" alt="Eje25_2" src="https://github.com/spinelf/promo-H-DA-modulo2-evaluacion-final-SilviaPinel/assets/99440874/b1dcb3b0-10c8-46b6-b969-543a7933449f">
 
