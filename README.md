@@ -3,6 +3,11 @@
 
  <img width="114" alt="Captura" src="https://github.com/spinelf/promo-H-DA-modulo2-evaluacion-final-SilviaPinel/assets/99440874/06003b59-282a-4129-83aa-3758a3e7855c">  <h2> Ejercicio Final Módulo 2 </h2>
 
+ ### Como ejecutar el proyecto
+
+ Para poder ejecutar las consultas tendremos que utilizar un gestor de base de datos, en este caso hemos utilizado MySQL Workbench. En el caso que no tengamos instalada la base de datos deberemos descargar el script de la base de datos sakila en este [enlace](https://raw.githubusercontent.com/spinelf/promo-H-DA-modulo2-evaluacion-final-SilviaPinel/main/sakila-schema.sql), y el script para la insercción de datos [aquí](https://raw.githubusercontent.com/spinelf/promo-H-DA-modulo2-evaluacion-final-SilviaPinel/main/sakila-data.sql), una vez descargada y ejecutados los dos script en MySQL Workbnch entonces podemos ver las características de la base de datos en este [enlace](https://raw.githubusercontent.com/spinelf/promo-H-DA-modulo2-evaluacion-final-SilviaPinel/main/detalle-bbdd-sakila.md). Para la evaluación del ejercicios descargaremos el script con los ejercicios y lo importaremos en MySQL Workbench para ejecutarlo, lo puedes descargar pinchando en el nombre del fichero: [Script_modulo2_evalucion_final_SilviaPinel.sql](https://raw.githubusercontent.com/spinelf/promo-H-DA-modulo2-evaluacion-final-SilviaPinel/main/Script_modulo2_evaluciacion_final_SilviaPinel.sql).
+ Por último como información adicional podemos ver el script de los ejercicios con las imágenes de los resultados de cada ejecución [Script_Ejercicios_con_resultados](https://raw.githubusercontent.com/spinelf/promo-H-DA-modulo2-evaluacion-final-SilviaPinel/main/Script_Ejercicios_con_resultados.md)
+
 ## Base de Datos Sakila:
 
 Para este ejerccio utilizaremos la BBDD Sakila que hemos estado utilizando durante el repaso de SQL. Es
